@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plaster Calculator 1.0</title>
+</head>
+
+<body>
+<form id="plasterMix" action=" ">
+    <fieldset>
+        <legend>Plaster Calculator 1.0</legend>
+        <p>
+            <label for="moldVolume">Mold Volume (ml.)</label>
+            <input type="number" name="moldVolume" id="moldVolume" list="quickPick">
+            <span class="validity"></span>
+        
+            <datalist id="quickPick">
+                <option value="250">
+                <option value="500">
+                <option value="750">
+                <option value="1000">
+                <option value="1250">
+            </datalist>
+        </p>
+
+        <p>
+            <input type="submit" value="Calculate" />
+            or
+            <input type="reset" value="Reset" />
+        </p>
+        <p>
+            <label for="water">Water (g.)</label>
+            <input id="water" name="water" type="number" readonly/>
+        </p>
+        <p>
+            <label for="plaster">Plaster (g.)</label>
+            <input id="plaster" name="plaster" type="number" readonly/>
+        </p>
+
+    </fieldset>
+</form>
+
+    <script>
+        (function () {
+
+            function calculatePlaster(moldVolume) {
+                moldVolume = parseFloat(moldVolume);
+                return (moldVolume * 1.75 * 0.6);
+            }
+
+            function calculateWater(moldVolume) {
+
+                return (moldVolume * 1.75 * 0.4);
+            }
+
+            var plasterMix = document.getElementById("plasterMix");
+            if (plasterMix) {
+                plasterMix.onsubmit = function () {
+                    this.plaster.value = calculatePlaster(this.moldVolume.value);
+                    this.water.value = calculateWater(this.moldVolume.value);
+                    return false;
+                };
+            }
+        }());
+
+
+    </script>
+</body>
+</html>
